@@ -8,7 +8,7 @@ export default function SandboxPage() {
     <>
       <Script
         src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"
-        strategy="beforeInteractive"
+                strategy="afterInteractive"
       />
       <Navbar />
       <main className={styles.sandboxPage}>
