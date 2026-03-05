@@ -1,0 +1,92 @@
+.topicsPage {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.topicsPage h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.pageDesc {
+  color: var(--text-dim);
+  margin-bottom: 32px;
+}
+
+.topicGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.topicCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+.topicCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.topicIcon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.topicCard h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.topicCard p {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.topicMeta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.priority {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.priorityHighest {
+  background: rgba(255, 123, 114, 0.2);
+  color: var(--accent4);
+}
+.priorityHigh {
+  background: rgba(210, 168, 255, 0.2);
+  color: var(--accent3);
+}
+.priorityAlways {
+  background: rgba(126, 231, 135, 0.2);
+  color: var(--accent2);
+}
+.priorityMedium {
+  background: rgba(88, 166, 255, 0.2);
+  color: var(--accent);
+}

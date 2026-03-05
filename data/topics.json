@@ -1,0 +1,68 @@
+{
+  "topics": [
+    {
+      "id": "dcgan",
+      "title": "DCGAN Parameter Counting",
+      "shortDesc": "Count parameters layer by layer in DCGAN models",
+      "marks": "8–10",
+      "priority": "highest",
+      "icon": "🔢"
+    },
+    {
+      "id": "kld-jsd-w",
+      "title": "KLD / JSD / Wasserstein",
+      "shortDesc": "Distribution metrics: KL Divergence, Jensen-Shannon, Wasserstein",
+      "marks": "6–7",
+      "priority": "highest",
+      "icon": "📊"
+    },
+    {
+      "id": "fid",
+      "title": "FID Calculation",
+      "shortDesc": "Fréchet Inception Distance for GAN evaluation",
+      "marks": "3–4",
+      "priority": "high",
+      "icon": "📐"
+    },
+    {
+      "id": "flow-lipschitz",
+      "title": "Flow Model + Lipschitz",
+      "shortDesc": "Invertibility and Lipschitz constant for WGAN",
+      "marks": "6–7",
+      "priority": "high",
+      "icon": "🔄"
+    },
+    {
+      "id": "vae-loss",
+      "title": "VAE Loss Calculation",
+      "shortDesc": "Reconstruction + KL divergence in Variational Autoencoders",
+      "marks": "3",
+      "priority": "always",
+      "icon": "📉"
+    },
+    {
+      "id": "word2vec",
+      "title": "Word2Vec / Skip-gram",
+      "shortDesc": "Word embeddings: Skip-gram and CBoW",
+      "marks": "6–8",
+      "priority": "medium",
+      "icon": "📝"
+    },
+    {
+      "id": "backprop",
+      "title": "Autoencoder Backprop",
+      "shortDesc": "Backpropagation through autoencoder networks",
+      "marks": "7",
+      "priority": "medium",
+      "icon": "⚙️"
+    },
+    {
+      "id": "diffusion",
+      "title": "Diffusion Model",
+      "shortDesc": "α, β scheduling and forward process",
+      "marks": "3–4",
+      "priority": "medium",
+      "icon": "🌫️"
+    }
+  ]
+}

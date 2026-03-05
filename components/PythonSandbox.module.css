@@ -1,0 +1,108 @@
+.sandbox {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sandboxToolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.runBtn {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.runBtn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.runBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.templateLabel {
+  font-size: 12px;
+  color: var(--text-dimmer);
+  margin-left: 8px;
+}
+
+.templateBtn {
+  padding: 6px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.templateBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sandboxEditor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .sandboxEditor {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codeInput {
+  width: 100%;
+  min-height: 350px;
+  padding: 20px;
+  background: var(--surface);
+  border: none;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+.outputPanel {
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.outputHeader {
+  padding: 12px 16px;
+  background: var(--surface2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.outputContent {
+  flex: 1;
+  padding: 16px;
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent2);
+  overflow: auto;
+  white-space: pre-wrap;
+}

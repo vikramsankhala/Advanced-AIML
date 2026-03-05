@@ -1,0 +1,74 @@
+{
+  "resources": [
+    {
+      "id": "r1",
+      "topicId": "dcgan",
+      "type": "formula",
+      "title": "Conv Layer Parameters",
+      "content": "k² × C_in × C_out + C_out\n\nk = filter size\nC_in = channels IN (prev layer)\nC_out = channels OUT (this layer)\n+C_out = bias"
+    },
+    {
+      "id": "r2",
+      "topicId": "dcgan",
+      "type": "formula",
+      "title": "BatchNorm Parameters",
+      "content": "2 × C_out\n\nSkip BN if: First conv (Discriminator) or Last conv (Generator)"
+    },
+    {
+      "id": "r3",
+      "topicId": "dcgan",
+      "type": "formula",
+      "title": "GAP Parameters",
+      "content": "ALWAYS = 0\n\nGlobal Average Pooling has no learnable parameters."
+    },
+    {
+      "id": "r4",
+      "topicId": "dcgan",
+      "type": "formula",
+      "title": "FC Layer Parameters",
+      "content": "C_in × C_out + C_out\n\nC_in = last conv's C_out\nC_out = number of classes/nodes"
+    },
+    {
+      "id": "r5",
+      "topicId": "kld-jsd-w",
+      "type": "formula",
+      "title": "KLD Gaussian",
+      "content": "KLD(P||Q) = log(σ₂/σ₁) + [σ₁² + (μ₁-μ₂)²]/(2σ₂²) - ½\n\nTo get KLD(Q||P): swap ALL 1s and 2s"
+    },
+    {
+      "id": "r6",
+      "topicId": "kld-jsd-w",
+      "type": "formula",
+      "title": "Wasserstein Distance",
+      "content": "W₂ = √[(μ₁-μ₂)² + (σ₁-σ₂)²]\n\n= √[center difference² + spread difference²]"
+    },
+    {
+      "id": "r7",
+      "topicId": "vae-loss",
+      "type": "formula",
+      "title": "VAE Loss",
+      "content": "VAE Loss = Reconstruction + KL Divergence\n\nPart 1: (x - x̂)²\nPart 2: ½ × (μ² + σ² - log(σ²) - 1)\n\nShortcut: When μ=0 and σ²=1 → KL = 0"
+    },
+    {
+      "id": "r8",
+      "topicId": "diffusion",
+      "type": "formula",
+      "title": "Diffusion Formulas",
+      "content": "αt = 1 - βt (signal remaining at step t)\n\nᾱt = α₁ × α₂ × ... × αt (product of all α)\n\nq(xt|x₀) = N(√ᾱt × x₀, (1-ᾱt) × I)"
+    },
+    {
+      "id": "r9",
+      "topicId": "dcgan",
+      "type": "code",
+      "title": "DCGAN Parameter Calculator",
+      "content": "def conv_params(k, c_in, c_out, include_bn=True):\n    return k*k*c_in*c_out + c_out + (2*c_out if include_bn else 0)\n\ndef fc_params(c_in, c_out):\n    return c_in*c_out + c_out\n\n# Example: Discriminator 64x64 gray, Conv=[25ch, 50ch], 2 classes\nk = 3  # filter size\nconv1 = k*k*1*25 + 25  # No BN on first layer\nconv2 = k*k*25*50 + 50 + 2*50\nfc = 50*2 + 2\ntotal = conv1 + conv2 + fc\nprint(f'Total parameters: {total}')"
+    },
+    {
+      "id": "r10",
+      "topicId": "vae-loss",
+      "type": "code",
+      "title": "VAE Loss Calculator",
+      "content": "import math\n\ndef vae_loss(x, x_recon, mu, sigma_sq):\n    recon = (x - x_recon)**2\n    if mu == 0 and sigma_sq == 1:\n        kl = 0\n    else:\n        kl = 0.5 * (mu**2 + sigma_sq - math.log(sigma_sq) - 1)\n    return recon + kl\n\n# Example: x=5, x̂=4, μ=0, σ²=1\nprint(vae_loss(5, 4, 0, 1))  # 1.0"
+    }
+  ]
+}
