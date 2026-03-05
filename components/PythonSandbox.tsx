@@ -23,14 +23,13 @@ def vae_loss(x, x_recon, mu, sigma_sq):
     recon = (x - x_recon)**2
     kl = 0 if (mu == 0 and sigma_sq == 1) else 0.5 * (mu**2 + sigma_sq - math.log(sigma_sq) - 1)
     return recon + kl
-print(f"VAE loss (x=5, x̂=4, μ=0, σ²=1): {vae_loss(5, 4, 0, 1)}")
+print(f"VAE loss (x=5, x\u0302=4, \u03bc=0, \u03c3\u00b2=1): {vae_loss(5, 4, 0, 1)}")
 `;
 
 const TEMPLATES: Record<string, string> = {
   dcgan: `# DCGAN Parameter Calculator
 def conv_params(k, c_in, c_out, bn=True):
     return k*k*c_in*c_out + c_out + (2*c_out if bn else 0)
-
 # Example: 64x64 gray, Conv=[25ch, 50ch], 2 classes, k=3
 k = 3
 conv1 = conv_params(k, 1, 25, bn=False)
@@ -44,7 +43,6 @@ def vae_loss(x, x_hat, mu, sigma_sq):
     recon = (x - x_hat)**2
     kl = 0.5 * (mu**2 + sigma_sq - math.log(sigma_sq) - 1) if not (mu==0 and sigma_sq==1) else 0
     return recon + kl
-
 print(vae_loss(5, 4, 0, 1))  # 1.0
 print(vae_loss(3, 2, 1, 2))  # ~1.654
 `,
@@ -53,12 +51,11 @@ import math
 def kld_gaussian(mu1, sigma1_sq, mu2, sigma2_sq):
     s1, s2 = math.sqrt(sigma1_sq), math.sqrt(sigma2_sq)
     return math.log(s2/s1) + (sigma1_sq + (mu1-mu2)**2)/(2*sigma2_sq) - 0.5
-
 # P=N(3,2), Q=N(4,1)
 print("KLD(P||Q):", kld_gaussian(3, 2, 4, 1))
 print("KLD(Q||P):", kld_gaussian(4, 1, 3, 2))
 `,
-  diffusion: `# Diffusion α and ᾱ
+  diffusion: `# Diffusion \u03b1 and \u03b1\u0305
 betas = [0.1, 0.2, 0.3]
 alphas = [1 - b for b in betas]
 alpha_bar = []
@@ -66,10 +63,27 @@ prod = 1
 for a in alphas:
     prod *= a
     alpha_bar.append(prod)
-print("α:", alphas)
-print("ᾱ:", alpha_bar)
+print("\u03b1:", alphas)
+print("\u03b1\u0305:", alpha_bar)
 `,
 };
+
+// Poll until window.loadPyodide is available (loaded by <Script> tag)
+function waitForPyodide(timeout = 30000): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+    const check = () => {
+      if (typeof (window as any).loadPyodide === 'function') {
+        resolve((window as any).loadPyodide);
+      } else if (Date.now() - start > timeout) {
+        reject(new Error('window.loadPyodide is not a function'));
+      } else {
+        setTimeout(check, 200);
+      }
+    };
+    check();
+  });
+}
 
 export default function PythonSandbox() {
   const [code, setCode] = useState(DEFAULT_CODE);
@@ -82,13 +96,10 @@ export default function PythonSandbox() {
     let cancelled = false;
     (async () => {
       try {
-        const loadPyodide = (window as any).loadPyodide;
-        if (!loadPyodide) {
-          setOutput('Loading Python runtime... (this may take a moment)');
-          await new Promise((r) => setTimeout(r, 500));
-          if (cancelled) return;
-        }
-        const pyodide = await (window as any).loadPyodide({
+        setOutput('Loading Python runtime... (this may take a moment)');
+        const loadPyodide = await waitForPyodide();
+        if (cancelled) return;
+        const pyodide = await loadPyodide({
           indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/',
         });
         if (!cancelled) {
@@ -138,7 +149,7 @@ sys.stdout = StringIO()
           disabled={loading || running}
           className={styles.runBtn}
         >
-          {running ? 'Running...' : '▶ Run'}
+          {running ? 'Running...' : '\u25b6 Run'}
         </button>
         <span className={styles.templateLabel}>Templates:</span>
         {Object.keys(TEMPLATES).map((k) => (
